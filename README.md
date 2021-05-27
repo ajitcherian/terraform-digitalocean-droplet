@@ -4,11 +4,14 @@ For creating a droplet(ubuntu or centos) in the Digital ocean using terraform sc
 
  You can run the run.sh script, which will launch ubuntu 18/centos 7 droplet:
  
-      run.sh droplet_name droplet_name.pub centos s-1vcpu-1gb blr1
- 
+      run.sh <droplet_name> <droplet_name.pub> centos s-1vcpu-1gb blr1
+  
  If you want to launch ubuntu droplet in new york:
  
-      run.sh droplet_name droplet_name.pub ubuntu s-1vcpu-1gb nyc1
+      run.sh <droplet_name> <droplet_name.pub> ubuntu s-1vcpu-1gb nyc1
+   
+  ##Above script will create a droplet and store the private key and public key of the server in /tmp/server/<SERVER_NAME> folder##
+   
    
  For getting the list of the type of droplet you may check the below link where there is a column slug from which you can select your type of droplet:
  
