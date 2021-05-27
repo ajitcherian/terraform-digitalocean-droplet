@@ -1,6 +1,6 @@
 # terraform-digitalocean-droplet
 
-For creating a droplet(ubuntu or centos) in digital ocean using terraform script.
+For creating a droplet(ubuntu or centos) in the Digital ocean using terraform script.
 
  You can run the run.sh script, which will launch ubuntu 18/centos 7 droplet:
  
@@ -10,17 +10,16 @@ For creating a droplet(ubuntu or centos) in digital ocean using terraform script
  
       run.sh droplet_name droplet_name.pub ubuntu s-1vcpu-1gb nyc1
    
- For getting list of type of droplet you may check below link:
+ For getting the list of the type of droplet you may check the below link where there is a column slug from which you can select your type of droplet:
  
      https://developers.digitalocean.com/documentation/changelog/api-v2/new-size-slugs-for-droplet-plan-changes/
 
- And for region code: 
+ And for selecting region :
  
      https://docs.digitalocean.com/products/platform/availability-matrix/#:~:text=DigitalOcean's%20datacenters%20are%20in%20the,SFO3%3A%20San%20Francisco%2C%20United%20States
 
+Create a personal access token key on your DigitalOcean account, then export the key to the machine where the script will be executed:
+   
+     export DO_TOKEN=<VALUE>
 
-Export digital oceaan key in machine where the scrippt will be executed:
-  
-    export DO_TOKEN=<VALUE>
-
-  
+ 
