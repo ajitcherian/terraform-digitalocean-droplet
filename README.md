@@ -20,6 +20,7 @@ For creating a droplet(ubuntu or centos) in digital ocean using terraform script
 
 
 Export digital oceaan key in machine where the scrippt will be executed:
-  export DO_TOKEN=<VALUE>
+  
+    export DO_TOKEN=<VALUE>
 
   
