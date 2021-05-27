@@ -4,7 +4,7 @@ SERVER=$1
 SERVER_PUBLIC_KEY=$2
 OS=$3
 sudo mkdir -p /tmp/server/$SERVER/terraform
-sudo chmod 777 /tmp/server/$SERVER
+sudo chmod 766 /tmp/server/$SERVER
 
 
 # this will not stop the script and ask for password IT will create private key with name $SERVER
@@ -38,12 +38,14 @@ sudo sed -i 's/nyc1/'$5'/g' /tmp/server/$SERVER/terraform/main.tf
 cd /tmp/server/$SERVER/terraform/
 
 # Initialise the configuration
-sudo /var/lib/jenkins/bin/terraform init -input=false
+sudo terraform init -input=false
+
+#DO_TOKEN = $DO_API_KEY
 
 # Plan and deploy
-DO_TOKEN = $DO_API_KEY
+
 SSH_FINGERPRINT=$(cat /tmp/text)
-sudo /var/lib/jenkins/bin/terraform plan -input=false -var="do_token=${DO_TOKEN}" -var="pub_key=/tmp/server/$SERVER/$SERVER_PUBLIC_KEY" -var="pvt_key=/tmp/server/$SERVER/$SERVER" -var="ssh_fingerprint=${SSH_FINGERPRINT}" -out=droplet_create
+sudo terraform plan -input=false -var="do_token=${DO_TOKEN}" -var="pub_key=/tmp/server/$SERVER/$SERVER_PUBLIC_KEY" -var="pvt_key=/tmp/server/$SERVER/$SERVER" -var="ssh_fingerprint=${SSH_FINGERPRINT}" -out=droplet_create
 
 sudo terraform apply droplet_create
 
