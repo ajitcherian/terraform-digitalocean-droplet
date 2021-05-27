@@ -25,12 +25,55 @@ provisioner "remote-exec" {
       "sudo firewall-cmd --permanent --add-service=https",
       "sudo firewall-cmd --reload",
       "sudo systemctl start httpd",
-      "sudo systemctl enable httpd",
-      "sudo yum install -y yum-utils device-mapper-persistent-data lvm2",
-      "sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo",
-      "sudo yum install docker -y",
-      "sudo systemctl start docker",
-      "sudo systemctl enable docker"
+      "sudo systemctl enable httpd"
     ]
   }
 }
+
+resource "digitalocean_firewall" "server" {
+  name = "server-firewall"
+
+  droplet_ids = [digitalocean_droplet.server.id]
+
+  inbound_rule {
+    protocol         = "tcp"
+    port_range       = "22"
+    source_addresses = ["192.168.1.0/24", "2002:1:2::/48"]
+  }
+
+  inbound_rule {
+    protocol         = "tcp"
+    port_range       = "80"
+    source_addresses = ["0.0.0.0/0", "::/0"]
+  }
+
+  inbound_rule {
+    protocol         = "tcp"
+    port_range       = "443"
+    source_addresses = ["0.0.0.0/0", "::/0"]
+  }
+
+  inbound_rule {
+    protocol         = "icmp"
+    source_addresses = ["0.0.0.0/0", "::/0"]
+  }
+
+  outbound_rule {
+    protocol              = "tcp"
+    port_range            = "53"
+    destination_addresses = ["0.0.0.0/0", "::/0"]
+  }
+
+  outbound_rule {
+    protocol              = "udp"
+    port_range            = "53"
+    destination_addresses = ["0.0.0.0/0", "::/0"]
+  }
+
+  outbound_rule {
+    protocol              = "icmp"
+    destination_addresses = ["0.0.0.0/0", "::/0"]
+  }
+}
+
+
