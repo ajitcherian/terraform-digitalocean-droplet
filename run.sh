@@ -41,11 +41,11 @@ cd /tmp/server/$SERVER/terraform/
 sudo /var/lib/jenkins/bin/terraform init -input=false
 
 # Plan and deploy
-DO_TOKEN=$DO_API_KEY
+DO_TOKEN = $DO_API_KEY
 SSH_FINGERPRINT=$(cat /tmp/text)
 sudo /var/lib/jenkins/bin/terraform plan -input=false -var="do_token=${DO_TOKEN}" -var="pub_key=/tmp/server/$SERVER/$SERVER_PUBLIC_KEY" -var="pvt_key=/tmp/server/$SERVER/$SERVER" -var="ssh_fingerprint=${SSH_FINGERPRINT}" -out=droplet_create
 
-sudo /var/lib/jenkins/bin/terraform apply droplet_create
+sudo terraform apply droplet_create
 
 
 cat /tmp/server/$SERVER/$SERVER
@@ -55,7 +55,7 @@ cat /tmp/server/$SERVER/$SERVER
 # Once finished, destroy the server
 
 #terraform plan -destroy -out=droplet_destroy
-#/var/lib/jenkins/bin/terraform apply droplet_destroy
-#sudo /var/lib/jenkins/bin/terraform destroy -input=false -var="do_token=${DO_TOKEN}" -var="pub_key=/tmp/server/test/test.pub" -var="pvt_key=/tmp/server/test/test" -var="ssh_fingerprint=${SSH_FINGERPRINT}"
+#terraform apply droplet_destroy
+#sudo terraform destroy -input=false -var="do_token=${DO_TOKEN}" -var="pub_key=/tmp/server/test/test.pub" -var="pvt_key=/tmp/server/test/test" -var="ssh_fingerprint=${SSH_FINGERPRINT}"
 # Cleaning up
 #rm -rf /tmp/server/$SERVER/terraform/
